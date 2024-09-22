@@ -1,0 +1,63 @@
+---
+title: "p8105_hw1_jrm2319.Rmd"
+author: "Jasmin Martinez"
+date: "2024-09-22"
+output: html_document
+---
+## Homework 1 
+### Problem 1
+```{r setup, include=FALSE}
+data("penguins", package = "palmerpenguins")
+```
+
+The data in this dataset includes the following variables: `r paste(names(penguins))`. 
+
+The size of the dataset is `r nrow(penguins)` rows and `r ncol(penguins)` columns. 
+
+The mean flipper lengeth is `r mean(penguins$flipper_length_mm, na.rm = TRUE)`.
+
+Scatterplot: 
+library(ggplot2) 
+q1plot  <- ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) +
+  geom_point() +
+  labs(
+    title = "Scatterplot of Flipper Length vs Bill Length",
+    x = "Bill Length",
+    y = "Flipper Length"
+  ) +
+  theme_minimal()
+
+ggsave(filename = "scatterplot_penguins.png", plot = q1plot, width = 7, height = 5)
+
+
+### Problem 2 
+
+This is my code for the data frame and my df: 
+```{r setup ,include = TRUE }
+random = rnorm(10)
+logical = random > 0
+character = c("farm", "house", "dog", "green", "wow", "cat", "water", "hi", "bye", "welcome")
+factor = factor(c("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"))
+
+q2df = data.frame(
+  random = random,
+  logical =logical,
+  character =character,
+  factor = factor
+)
+q2df 
+
+mean(random)
+mean(logical)
+mean(character)
+mean(factor)
+```
+
+**Explanation**: Mean for the random and logical variable work and the means for character and factor variables do not work. Given that random is a set of random numbers that follow a normal distribution, it makes sense that a mean could be produced. A mean can also be computed from logical becuase it assigns a 1 if  random is greater than 0 and a flase is random is less than 0--however this mean is not helpful. Finally, a mean cannot be computed for chracter or factor becuase these are character variables not numeric. 
+
+```{r w, include = TRUE }
+as.numeric(character)
+as.numeric(factor)
+```
+
+**Explanation**: Factor can be turned into  a numeric because it follows an ordinal syste. Character cannot be turned into a numeric becuase there is nothing that could logically make it a number in R--in the way the code is written at the moment. 
